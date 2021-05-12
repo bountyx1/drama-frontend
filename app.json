@@ -1,0 +1,19 @@
+{
+  "name": "kdrama",
+  "displayName": "kdrama",
+  "expo": {
+    "orientation": "default",
+    "name": "kdrama",
+    "slug": "kdrama",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "mellow.apk"
+    },
+    "ios": {
+      "bundleIdentifier": "mellow.apk"
+    }
+  }
+}
