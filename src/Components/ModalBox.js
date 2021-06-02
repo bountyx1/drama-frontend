@@ -6,44 +6,41 @@ import { useNavigation } from '@react-navigation/native';
 import IconBtn,{WatchList} from './Btns';
 
 
-
 const ModalBox = ({item,children}) => {
-    const {description,title,img,year,ua,id} = item
-    const [visible, setVisible] = React.useState(false);
+    const {description,title,img,id} = item
+    const [visible, setVisible] = useState(false);
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
     const navigation = useNavigation();
-
+    const _goTo = () => {
+        navigation.navigate('Drama',{
+            id
+        });
+        hideModal()
+      }
       return(
-          <View>
+          <>
           <Portal>
               <Modal visible={visible} onDismiss={hideModal}   contentContainerStyle={styles.modalBox}>
                   <View style={styles.modalBoxContainer}>
                       <CardBox img={img}/>
                       <View style={styles.detailContainer}>
-                          <Title>{title}</Title>
-                          
-                          <View style={{flexDirection:"row",justifyContent:'space-between',width:80}}>
-                              <Text>{year}</Text>
-                              <Text>{ua}</Text>     
-                          </View>
+                          <Title style={{flex:1}}>{title}</Title>
                           <Paragraph numberOfLines={4}>{description}</Paragraph>
                       </View>
                   </View>
+                  
                   <View style={styles.btnContainer}> 
                       <Button  color="white" style={{width:"55%"}}    icon="play" mode="contained" uppercase={false}>Play</Button>
                       <WatchList id={id} />
                       <IconBtn size={35} name="Preview" icon="play-outline" />
                   </View>
+
+                  
                   <Divider />
                   <View style={styles.bottom}>
                   <Button
-                  onPress={ () => {
-                    navigation.navigate('Drama',{
-                        id
-                    });
-                    hideModal()
-                  }}
+                  onPress={ () => _goTo() }
                   contentStyle={{justifyContent:"flex-start"}}
                   icon="information-outline" mode="text"
                   color="white"
@@ -61,7 +58,7 @@ const ModalBox = ({item,children}) => {
                {children}
                </View>
            </TouchableRipple>
-          </View>
+           </>
       )
   }
 
@@ -70,14 +67,13 @@ const ModalBox = ({item,children}) => {
 
   const styles = StyleSheet.create({
     modalBox:{
-        height:270,
+        height:"37%",
         width:"100%",
-        borderTopRightRadius:15,
-        borderTopLeftRadius:15,
-        backgroundColor: 'grey', 
+        borderTopRightRadius:18,
+        borderTopLeftRadius:18,
         position:'absolute',
         bottom:0,
-        backgroundColor:"#2b2b2b",
+        backgroundColor:"#252525",
     },
     modalBoxContainer:{
         flex:1,
@@ -96,6 +92,6 @@ const ModalBox = ({item,children}) => {
         padding:10
     },
     bottom:{
-        flex:0.3
+        padding:2
     }
   });

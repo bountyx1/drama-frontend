@@ -9,6 +9,6 @@ export const API_CODE = {
 
 
 export const BACKEND = {
-    CHAT: "http://159.65.134.137:19401",
-    API:  "http://159.65.134.137:19402"
+    CHAT: "http://babi.dev:19402",
+    API:  "http://babi.dev:19401"
 }

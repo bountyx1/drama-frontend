@@ -7,15 +7,13 @@ export default function Screen({children}) {
            <View style={styles.container}>
                 {children}
            </View>
-       
        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     screen:{
-        flex:1,
-//        paddingTop:Constants.statusBarHeight,
+        flex:1
     },
     container:{
         flex:1,

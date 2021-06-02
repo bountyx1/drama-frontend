@@ -51,7 +51,7 @@ export default function Welcome() {
 
     useEffect(() => {
         if(!isLoggedIn){
-        userInfo().then(res=> res ? setisLoggedIn(true) : setLoading(false))
+            userInfo().then(res=> res ? setisLoggedIn(true) : setLoading(false))
         }
         else{
             setLoading(false)

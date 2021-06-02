@@ -1,5 +1,6 @@
-# netflix-clone
+# Streamly Frontend 
 
 
 
-Still working .....
+
+

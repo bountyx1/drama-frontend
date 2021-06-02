@@ -1,5 +1,5 @@
 import { storeRefresh, storeToken } from '../store/login'
-import {apiAuth, apiPost, apiPostAuth,apiDeleteAuth,socket} from './explore'
+import {apiAuth, apiPost, apiPostAuth,apiDeleteAuth} from './explore'
 
 export const getDrama =  (id) => {
     let url = `/api/dramas/${id}/?format=json&query={id,description,title,img,poster,ua,year,seasons}`
@@ -19,7 +19,7 @@ export const searchDrama = (searchQuery) => {
 
 
 export const popularDrama = () => {
-    let url = `/api/dramas/?format=json`
+    let url = `/api/dramas/?format=json&limit=15&offset=16000`
     return apiAuth(url)
 }
 
@@ -102,20 +102,10 @@ export const signUp = (username,password,email,fname,lname) => {
             });
 }
 
-export const userInfo =  () => {
+export const userInfo = async () => {
     let url = `/api/users/`
-    return apiAuth(url).then(res => 
-        {
-         if(res[0].username)
-         {
-             return true
-         }
-         else{
-             return false
-         }
-        }).catch(function(error) {
-            console.log('There has been a problem with your fetch operation: ' + error.message);
-            });
+    let response = await apiAuth(url)
+    return response
 }
 
 export const getUser =  () => {
@@ -126,19 +116,9 @@ export const getUser =  () => {
         }).catch(error => console.log(error));
 }
 
-export const createRoom = (video,header,host) => {
-    params = {}
-    params.video = video
-    params.header = "Default"
-    params.room = "default"
-    params.host = host
-    params.title = "default"
-    console.log(params)
+export const createRoom = (params) => {
     let url = `/api/rooms/`
-    return apiPostAuth(url,params).then(res => 
-        {
-            return (res.id) ? res.room : false
-        })
+    return apiPostAuth(url,params)
 }
 
 export const getRoom = (id) => {
@@ -146,5 +126,6 @@ export const getRoom = (id) => {
     return apiAuth(url)
 }
 
-export const JoinChatRoom = (profile,room) => socket.emit("joinRoom",{profile,room})
-export const SendChatMessage =  msg => socket.emit("chat",msg)
+export const JoinChatRoom = (socket,profile,room) => socket.emit("joinRoom",{profile,room})
+export const SendChatMessage =  (socket,msg) => socket.emit("chat",msg)
+export const SendPlayerEvent =  (socket,msg) => socket.emit("player",msg)

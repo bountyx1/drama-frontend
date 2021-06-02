@@ -106,7 +106,7 @@ export  function WatchList({id}) {
             watchList ? btns("check",33,_delWatch,"My List") : btns("plus",33,_addWatch,"My List")
             }
            
-           {watchList ? <Popup style={{paddingLeft:20}} message="Added to WatchList" visible={visible}/>: <Popup style={{paddingLeft:0}}  message="Removed from WatchList" visible={visible}/>}
+           {watchList ? <Popup style={{paddingLeft:20}} message="Added to WatchList" visible={visible}/> : <Popup style={{paddingLeft:0}}  message="Removed from WatchList" visible={visible}/>}
 
         </>
     )

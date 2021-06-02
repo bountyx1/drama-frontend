@@ -1,11 +1,9 @@
 import axios from "axios";
-import socketClient  from "socket.io-client";
 import {getToken} from '../store/login'
 import {API_CODE,BACKEND} from './constants'
 
 
 
-export const socket = socketClient(BACKEND.CHAT);
 
 const client = axios.create({
     baseURL: BACKEND.API,
@@ -22,15 +20,22 @@ async function apiCheckStatus (res) {
 }
 
 
-export  function api (url, paramOptions) {
+export async function api (url, paramOptions) {
     const options = paramOptions || {};
     const {data, headers} = options;
-    return client(url, {
+    try {
+    let response = await client(url, {
       headers: headers || {'Content-Type': 'application/json'},
       ...options,
       data: data || {}
     })
-      .then(response => apiCheckStatus(response, url, options))
+    return apiCheckStatus(response, url, options)
+  }
+  catch(err){
+    // Create a function to handle errors
+    console.log(`${url}---->`,err)
+    return false
+  }
   }
   
 
@@ -48,38 +53,29 @@ export function apiPut (url, params) {
     return api(url, {method: 'put', data: params || {}});
   }
 
-export function  apiAuth(url,params){
-          return getToken().then(token => {
-            return api(
-              url,{headers:{"Authorization":`Bearer ${token}`},data:params || {} 
-              }).then(res => {return res })
+export async function  apiAuth(url,method,params){
+         let token =  await getToken()
+         let response = await api(
+          url,
+          {
+            method:method || "get",
+            data:params || {},
+            headers:{"Authorization":`Bearer ${token}`},
           })
+          return response
+            
 }
 
 
-export function apiPostAuth(url,params){
-  return getToken().then(token => {
-    return api(
-      url,
-      {
-        method:"post",
-        headers:{"Authorization":`Bearer ${token}`},
-        data: params || {} 
-      }).then(res => {return res })
-  })
-
+export async function apiPostAuth(url,params){
+  let response = await apiAuth(url,"post", params);
+  return response
 }
 
 
-export function apiDeleteAuth(url,params){
-  return getToken().then(token => {
-    return api(
-      url,
-      {
-        method:"delete",
-        headers:{"Authorization":`Bearer ${token}`},
-        data: params || {} 
-      }).then(res => {return res })
-  })
+export async function apiDeleteAuth(url,params){
+  return await apiAuth(
+    url, {method: 'delete', data: params || {}}
+  );
 
 }

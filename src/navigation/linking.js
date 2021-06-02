@@ -4,7 +4,8 @@ const linking = {
         screens:{
             SignUp:'signup',
             SignIn:'signin',
-            Player:'room/:room'
+            Player:'room/:room',
+            Drama:'drama/:id',
         }
     }
 }

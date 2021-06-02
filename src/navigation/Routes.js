@@ -1,10 +1,10 @@
 import Drama from '../Screen/Drama/Drama'
-import Player from '../Screen/Drama/Player';
+import Player from '../Screen/Player/Player';
 import Welcome from '../Screen/Welcome/Welcome';
 import SignIn from '../Screen/Welcome/SignIn';
 import SignUp from '../Screen/Welcome/SignUp';
 import Home from '../Screen/Home/Home'
-import Search from '../Screen/Search'
+import Search from '../Screen/Search/Search'
 import Account from '../Screen/Account/Account'
 import Download from '../Screen/Download'
 
